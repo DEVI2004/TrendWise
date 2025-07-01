@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiSearch } from "react-icons/fi"; // ✅ Optional: Requires react-icons installed
+import { FiSearch } from "react-icons/fi"; 
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");

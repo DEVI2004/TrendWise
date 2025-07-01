@@ -12,7 +12,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [articles, setArticles] = useState<any[]>([]);
 
-  const adminEmails = ["youremail@gmail.com"]; // ✅ Replace with your actual admin email
+  const adminEmails = ["youremail@gmail.com"]; // Replace with your actual admin email
 
   useEffect(() => {
     if (status === "loading") return;
@@ -39,7 +39,7 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 text-black">
-      {/* ✅ Navbar */}
+      {/*Navbar  */}
       <nav className="w-full bg-black px-8 py-4 flex justify-between items-center shadow-md mb-6">
         <Link
           href="/"
@@ -53,7 +53,7 @@ export default function AdminPage() {
         </div>
       </nav>
 
-      {/* ✅ Admin Panel Content */}
+      {/* Admin Panel Content */}
       <section className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-300">
         <h1 className="text-3xl font-bold text-red-700 mb-4">Admin Dashboard</h1>
 

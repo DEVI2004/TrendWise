@@ -29,7 +29,7 @@ export default function ProfilePage() {
 
   return (
     <main className="min-h-screen bg-gray-100 text-black">
-      {/* ✅ Navbar */}
+      {/*Navbar */}
       <nav className="w-full bg-black px-8 py-4 flex justify-between items-center shadow-md mb-6">
         <Link
           href="/"
@@ -38,7 +38,7 @@ export default function ProfilePage() {
           🌍 TrendWise
         </Link>
 
-        {/* ✅ Profile with dropdown */}
+        {/*Profile with dropdown */}
         <div
           className="relative"
           onMouseEnter={() => setShowDropdown(true)}
@@ -74,7 +74,7 @@ export default function ProfilePage() {
         </div>
       </nav>
 
-      {/* ✅ Profile Content */}
+      {/* Profile Content */}
       <section className="max-w-2xl mx-auto bg-white border border-gray-300 shadow rounded-xl p-6">
         <h1 className="text-3xl font-bold text-red-700 mb-4">👤 Your Profile</h1>
         {session.user?.image && (

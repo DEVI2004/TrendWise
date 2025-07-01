@@ -1,29 +1,3 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-
-// export default function CommentsList({ articleSlug }: { articleSlug: string }) {
-//   const [comments, setComments] = useState<any[]>([]);
-
-//   useEffect(() => {
-//     async function fetchComments() {
-//       const res = await fetch(`/api/comment?articleSlug=${articleSlug}`);
-//       const data = await res.json();
-//       setComments(data);
-//     }
-//     fetchComments();
-//   }, [articleSlug]);
-
-//   return (
-//     <ul className="mt-2">
-//       {comments.map((comment) => (
-//         <li key={comment._id} className="border p-2 mb-1">
-//           <strong>{comment.userName}</strong>: {comment.content}
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// }
 
 
 "use client";

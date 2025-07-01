@@ -474,7 +474,7 @@ export default function HomePage() {
     }
   };
 
-  // ✅ ✅ ✅ New: Generate Article Function
+  // New: Generate Article Function
   const handleGenerateArticle = async () => {
     try {
       setLoading(true);
@@ -484,17 +484,17 @@ export default function HomePage() {
       const result = await res.json();
 
       if (result.success) {
-        alert("✅ Article Generated Successfully!");
+        alert("Article Generated Successfully!");
         // Refresh articles
         const updatedRes = await fetch("/api/article");
         const updatedData = await updatedRes.json();
         setArticles(updatedData);
       } else {
-        alert("❌ Error generating article");
+        alert("Error generating article");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("❌ Error generating article");
+      alert("Error generating article");
     } finally {
       setLoading(false);
     }
@@ -502,12 +502,12 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-gray-100 text-black">
-      {/* ✅ Navbar */}
+      {/* Navbar */}
       <nav className="flex justify-between items-center px-8 py-4 bg-black shadow-md w-full">
         <h1 className="text-2xl font-bold text-white">🌍 TrendWise</h1>
 
         <div className="flex items-center space-x-4">
-          {/* ✅ Search Bar */}
+          {/* Search Bar */}
           <form onSubmit={handleSearch} className="flex">
             <input
               type="text"
@@ -519,13 +519,13 @@ export default function HomePage() {
             <button
               type="submit"
               className="px-4 py-1 bg-maroon-600 text-white rounded-r hover:bg-green-700 transition duration-200"
-              style={{ backgroundColor: "gray-300" }} // maroon
+              style={{ backgroundColor: "gray-300" }} 
             >
               Search
             </button>
           </form>
 
-          {/* ✅ Profile / Login Dropdown */}
+          {/* Profile / Login Dropdown */}
           {session ? (
             <div className="relative group">
               <button className="flex items-center space-x-2 text-white focus:outline-none">
@@ -570,18 +570,7 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* ✅ Generate Article Button */}
-      {/* <div className="text-center my-6">
-        <form action="/api/generateArticle" method="post">
-          <button className="px-6 py-2 text-white rounded hover:bg-yellow-600 transition duration-200 shadow-md"
-            style={{ backgroundColor: "green" }}  // Different color (Dark Red/Firebrick)
-          >
-            Generate New Article
-          </button>
-        </form>
-      </div> */}
-
-      {/* ✅ Generate Article Button */}
+      {/* Generate Article Button */}
       <div className="text-center my-6">
         <button
           onClick={handleGenerateArticle}
@@ -593,7 +582,7 @@ export default function HomePage() {
         </button>
       </div>
 
-      {/* ✅ Articles Grid */}
+      {/* Articles Grid */}
       <section className="grid gap-6 max-w-4xl mx-auto px-4">
         {articles.map((article) => (
           <Link key={article._id} href={`/article/${article.slug}`}>
