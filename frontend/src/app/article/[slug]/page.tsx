@@ -258,35 +258,189 @@
 // }
 
 
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
+//old edited
+
+
+// import { notFound } from "next/navigation";
+// import Link from "next/link";
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/lib/authOptions";
+// import dbConnect from "@/lib/mongodb";
+// import Article from "@/models/Article";
+// import Comment from "@/models/Comment";
+// import CommentForm from "@/components/CommentForm";
+// import CommentsList from "@/components/CommentsList";
+// import { Metadata } from "next";
+// import Image from "next/image";
+
+// interface ArticleType {
+//   title: string;
+//   meta: string;
+//   slug: string;
+//   media: string[];
+//   content: string;
+// }
+
+// // ✅ SEO Metadata Function (Server-side only)
+// export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+//   await dbConnect();
+//   const article = await Article.findOne({ slug: params.slug }).lean();
+
+//   if (!article) {
+//     return {
+//       title: "Article Not Found - TrendWise",
+//       description: "The article you are looking for does not exist.",
+//     };
+//   }
+
+//   return {
+//     title: article.title,
+//     description: article.meta,
+//     openGraph: {
+//       title: article.title,
+//       description: article.meta,
+//       url: `http://localhost:3000/article/${article.slug}`,
+//       images: article.media && article.media.length > 0
+//         ? article.media.map((url: string) => ({ url }))
+//         : [{ url: "http://localhost:3000/default-og-image.png" }],
+//     },
+//   };
+// }
+
+// export default async function ArticlePage({ params }: { params: { slug: string } }) {
+//   await dbConnect();
+
+//   const article = (await Article.findOne({ slug: params.slug }).lean()) as ArticleType | null;
+
+//   if (!article) {
+//     return notFound();
+//   }
+
+//   const rawComments = await Comment.find({ articleSlug: params.slug }).lean();
+//   const comments = rawComments.map((comment) => ({
+//     ...comment,
+//     _id: comment._id.toString(),
+//     createdAt: comment.createdAt.toISOString(),
+//     updatedAt: comment.updatedAt.toISOString(),
+//   }));
+
+//   const session = await getServerSession(authOptions);
+
+//   return (
+//     <main className="min-h-screen bg-gray-100 text-black">
+//       {/* ✅ Navbar */}
+//       <nav className="flex justify-between items-center px-8 py-4 bg-black shadow-md w-full">
+//         <Link href="/" className="text-2xl font-bold text-white">
+//           🏠 Home
+//         </Link>
+
+//         <div className="flex items-center space-x-4">
+//           {session ? (
+//             <div className="relative group">
+//               <button className="flex items-center space-x-2 text-white focus:outline-none">
+//                 {session.user?.image && (
+//                   <Image
+//                     src={session.user.image}
+//                     alt="Profile"
+//                     width={32}
+//                     height={32}
+//                     className="rounded-full border-2 border-white"
+//                   />
+//                 )}
+//                 <span>{session.user?.name}</span>
+//                 <svg
+//                   className="w-4 h-4 fill-current"
+//                   xmlns="http://www.w3.org/2000/svg"
+//                   viewBox="0 0 20 20"
+//                 >
+//                   <path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z" />
+//                 </svg>
+//               </button>
+
+//               {/* Dropdown */}
+//               <div className="absolute right-0 mt-2 w-32 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 z-50">
+//                 <form action="/api/auth/signout" method="post">
+//                   <input type="hidden" name="callbackUrl" value="/" />
+//                   <button
+//                     type="submit"
+//                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+//                   >
+//                     Logout
+//                   </button>
+//                 </form>
+//               </div>
+//             </div>
+//           ) : (
+//             <Link href="/api/auth/signin">
+//               <button className="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200">
+//                 Login
+//               </button>
+//             </Link>
+//           )}
+//         </div>
+//       </nav>
+
+//       {/* ✅ Article Content */}
+//       <div className="max-w-3xl mx-auto py-8 px-4">
+//         <h1 className="text-3xl font-bold text-red-700 mb-4">{article.title}</h1>
+//         <div className="whitespace-pre-line text-gray-800 leading-relaxed">
+//           {article.content}
+//         </div>
+
+//         {/* ✅ Comments Section */}
+//         <div className="mt-8 bg-white border border-gray-300 shadow-md rounded-xl p-6">
+//           <h2 className="text-2xl font-semibold text-black mb-4">Comments</h2>
+
+//           <CommentsList comments={comments} />
+
+//           {session ? (
+//             <div className="mt-4">
+//               <CommentForm articleSlug={params.slug} user={session.user} />
+//             </div>
+//           ) : (
+//             <div className="mt-4 text-center">
+//               <Link
+//                 href="/api/auth/signin"
+//                 className="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
+//               >
+//                 Login to post a comment
+//               </Link>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </main>
+//   );
+// }
+
 import dbConnect from "@/lib/mongodb";
 import Article from "@/models/Article";
 import Comment from "@/models/Comment";
-import CommentForm from "@/components/CommentForm";
-import CommentsList from "@/components/CommentsList";
-import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import Link from "next/link";
 import Image from "next/image";
+import CommentsList from "@/components/CommentsList";
+import CommentForm from "@/components/CommentForm";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-interface ArticleType {
-  title: string;
-  meta: string;
-  slug: string;
-  media: string[];
-  content: string;
-}
+// ✅ Types
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
 
-// ✅ SEO Metadata Function (Server-side only)
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+// ✅ SEO Metadata
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   await dbConnect();
   const article = await Article.findOne({ slug: params.slug }).lean();
 
   if (!article) {
     return {
       title: "Article Not Found - TrendWise",
-      description: "The article you are looking for does not exist.",
+      description: "The requested article was not found.",
     };
   }
 
@@ -296,18 +450,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: article.title,
       description: article.meta,
-      url: `http://localhost:3000/article/${article.slug}`,
-      images: article.media && article.media.length > 0
-        ? article.media.map((url: string) => ({ url }))
-        : [{ url: "http://localhost:3000/default-og-image.png" }],
+      url: `https://your-vercel-site.vercel.app/article/${article.slug}`,
     },
   };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: PageProps) {
   await dbConnect();
 
-  const article = (await Article.findOne({ slug: params.slug }).lean()) as ArticleType | null;
+  const article = await Article.findOne({ slug: params.slug }).lean();
+  const session = await getServerSession(authOptions);
 
   if (!article) {
     return notFound();
@@ -321,90 +473,46 @@ export default async function ArticlePage({ params }: { params: { slug: string }
     updatedAt: comment.updatedAt.toISOString(),
   }));
 
-  const session = await getServerSession(authOptions);
-
   return (
     <main className="min-h-screen bg-gray-100 text-black">
       {/* ✅ Navbar */}
-      <nav className="flex justify-between items-center px-8 py-4 bg-black shadow-md w-full">
-        <Link href="/" className="text-2xl font-bold text-white">
-          🏠 Home
-        </Link>
-
-        <div className="flex items-center space-x-4">
-          {session ? (
-            <div className="relative group">
-              <button className="flex items-center space-x-2 text-white focus:outline-none">
-                {session.user?.image && (
-                  <Image
-                    src={session.user.image}
-                    alt="Profile"
-                    width={32}
-                    height={32}
-                    className="rounded-full border-2 border-white"
-                  />
-                )}
-                <span>{session.user?.name}</span>
-                <svg
-                  className="w-4 h-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z" />
-                </svg>
-              </button>
-
-              {/* Dropdown */}
-              <div className="absolute right-0 mt-2 w-32 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 z-50">
-                <form action="/api/auth/signout" method="post">
-                  <input type="hidden" name="callbackUrl" value="/" />
-                  <button
-                    type="submit"
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </form>
-              </div>
-            </div>
-          ) : (
-            <Link href="/api/auth/signin">
-              <button className="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200">
-                Login
-              </button>
-            </Link>
-          )}
-        </div>
+      <nav className="flex justify-between items-center px-8 py-4 bg-black shadow-md">
+        <Link href="/" className="text-white text-xl font-bold">🏠 Home</Link>
+        {session && session.user?.image && (
+          <div className="flex items-center space-x-2">
+            <Image
+              src={session.user.image}
+              alt="Profile"
+              width={32}
+              height={32}
+              className="rounded-full border-2 border-white"
+            />
+            <span className="text-white">{session.user.name}</span>
+          </div>
+        )}
       </nav>
 
-      {/* ✅ Article Content */}
-      <div className="max-w-3xl mx-auto py-8 px-4">
-        <h1 className="text-3xl font-bold text-red-700 mb-4">{article.title}</h1>
-        <div className="whitespace-pre-line text-gray-800 leading-relaxed">
-          {article.content}
-        </div>
+      {/* ✅ Article */}
+      <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow mt-6">
+        <h1 className="text-3xl font-bold mb-4 text-red-700">{article.title}</h1>
+        <div className="whitespace-pre-line text-gray-800">{article.content}</div>
+      </div>
 
-        {/* ✅ Comments Section */}
-        <div className="mt-8 bg-white border border-gray-300 shadow-md rounded-xl p-6">
-          <h2 className="text-2xl font-semibold text-black mb-4">Comments</h2>
+      {/* ✅ Comments */}
+      <div className="max-w-3xl mx-auto p-6 mt-6 bg-white rounded shadow">
+        <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+        <CommentsList comments={comments} />
 
-          <CommentsList comments={comments} />
-
-          {session ? (
-            <div className="mt-4">
-              <CommentForm articleSlug={params.slug} user={session.user} />
-            </div>
-          ) : (
-            <div className="mt-4 text-center">
-              <Link
-                href="/api/auth/signin"
-                className="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
-              >
-                Login to post a comment
-              </Link>
-            </div>
-          )}
-        </div>
+        {session ? (
+          <CommentForm articleSlug={params.slug} user={session.user} />
+        ) : (
+          <Link
+            href="/api/auth/signin"
+            className="inline-block mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
+          >
+            Login to comment
+          </Link>
+        )}
       </div>
     </main>
   );
